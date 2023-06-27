@@ -10,7 +10,7 @@
   apiUrl = "/.netlify/functions"
   title = "Redwood Tutorial Blog"
 [api]
-  port = 8911
+  port = 8912
 [browser]
   open = true
 [experimental]
