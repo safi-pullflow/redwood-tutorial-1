@@ -4,7 +4,7 @@ import { Toaster } from '@redwoodjs/web/dist/toast'
 import { useAuth } from 'src/auth'
 
 const BlogLayout = ({ children }) => {
-  const { logOut, isAuthenticated, currentUser } = useAuth()
+  const { logOut, isAuthenticated, currentUser, hasRole } = useAuth()
 
   return (
     <>
@@ -37,14 +37,34 @@ const BlogLayout = ({ children }) => {
               </Link>
             </li>
             <li>
+              {isAuthenticated && hasRole('admin') &&(
+              <Link
+                className="py-2 px-4 hover:bg-blue-600 transition duration-100 rounded"
+                to={routes.posts()}
+              >
+                Posts
+              </Link>
+            )}
+            </li>
+            <li>
+              {isAuthenticated && hasRole('admin') &&(
+              <Link
+                className="py-2 px-4 hover:bg-blue-600 transition duration-100 rounded"
+                to={routes.adminPortal()}
+              >
+                Admin Portal
+              </Link>
+            )}
+            </li>
+            <li>
               {isAuthenticated ? (
                 <div>
-                  <button type="button" onClick={logOut} className="py-2 px-4">
+                  <button type="button" onClick={logOut} className="rw-button rw-button-green">
                     Logout
                   </button>
                 </div>
               ) : (
-                <Link to={routes.login()} className="py-2 px-4">
+                <Link to={routes.login()} className="rw-button rw-button-green">
                   Login
                 </Link>
               )}

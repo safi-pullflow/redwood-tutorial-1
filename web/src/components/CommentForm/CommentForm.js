@@ -7,6 +7,7 @@ import {
   TextField,
   TextAreaField,
   Submit,
+  useForm
 } from '@redwoodjs/forms'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
@@ -25,23 +26,25 @@ const CREATE = gql`
 `
 
 const CommentForm = ({ postId }) => {
+  const formMethods = useForm()
   const [hasPosted, setHasPosted] = useState(false)
   const [createComment, { loading, error }] = useMutation(CREATE, {
     onCompleted: () => {
       setHasPosted(true)
       toast.success('Thank you for your comment!')
     },
-    refetchQueries: [{ query: CommentsQuery }],
+    refetchQueries: [{ query: CommentsQuery, variables: { postId } }],
   })
 
   const onSubmit = (input) => {
     createComment({ variables: { input: { postId, ...input } } })
+    formMethods.reset()
   }
 
   return (
-    <div className={hasPosted ? 'hidden' : ''}>
+    <div>
       <h3 className="font-light text-lg text-gray-600">Leave a Comment</h3>
-      <Form className="mt-4 w-full" onSubmit={onSubmit}>
+      <Form className="mt-4 w-full" onSubmit={onSubmit} formMethods={formMethods}>
         <FormError
           error={error}
           titleClassName="font-semibold"

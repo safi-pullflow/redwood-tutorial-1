@@ -8,10 +8,13 @@ const truncate = (text, length) => {
 
 const Article = ({ article, summary = false }) => {
   return (
-    <article className="mt-10">
+    <article className="bg-gray-300 outline-2 p-8 rounded-lg relative">
       <header>
         <h2 className="text-xl text-blue-700 font-semibold">
           <Link to={routes.article({ id: article.id })}>{article.title}</Link>
+          <span className="ml-2 text-gray-400 font-normal">
+            by {article.user.name}
+          </span>
         </h2>
       </header>
       <div className="mt-2 text-gray-900 font-light">
@@ -21,7 +24,7 @@ const Article = ({ article, summary = false }) => {
         <div className='mt-12'>
           <CommentForm postId={article.id} />
           <div className='mt-12'>
-            <CommentsCell />
+            <CommentsCell postId={article.id}/>
           </div>
         </div>
       )}

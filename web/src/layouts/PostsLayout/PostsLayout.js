@@ -11,9 +11,20 @@ const PostsLayout = (props) => {
             Posts
           </Link>
         </h1>
-        <Link to={routes.newPost()} className="rw-button rw-button-green">
-          <div className="rw-button-icon">+</div> New Post
-        </Link>
+        <nav>
+        <ul className="relative flex items-center font-light">
+          <li>
+            <Link to={routes.newPost()} className="rw-button rw-button-green">
+              <div className="rw-button-icon">+</div> New Post
+            </Link>
+          </li>
+          <li>
+            <Link to={routes.home()} className="rw-button rw-button-red">
+              Home
+            </Link>
+          </li>
+        </ul>
+        </nav>
       </header>
       <main className="rw-main">{props.children}</main>
     </div>
